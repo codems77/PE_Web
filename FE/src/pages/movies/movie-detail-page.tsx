@@ -1,9 +1,12 @@
 import { Link, useParams } from "@tanstack/react-router";
 import { movies } from "../../data/movie";
+import { useBookmarkStore } from "../../stores/bookmark-store";
 
 export function MovieDetailPage() {
   const { movieId } = useParams({ from: "/movies/$movieId" });
   const movie = movies.find((item) => item.id === Number(movieId));
+
+  const { bookmarkedMovieIds, toggleBookmark } = useBookmarkStore();
 
   if (!movie) {
     return (
@@ -23,6 +26,8 @@ export function MovieDetailPage() {
       </main>
     );
   }
+
+  const isBookmarked = bookmarkedMovieIds.includes(movie.id);
 
   return (
     <main className="min-h-screen bg-white">
@@ -48,9 +53,20 @@ export function MovieDetailPage() {
             />
 
             <div className="pb-2 text-white">
-              <h1 className="text-3xl font-bold md:text-4xl">
-                {movie.title}
-              </h1>
+              <div className="flex items-center gap-4">
+                <h1 className="text-3xl font-bold md:text-4xl">
+                  {movie.title}
+                </h1>
+
+                <button
+                  type="button"
+                  onClick={() => toggleBookmark(movie.id)}
+                  className="text-3xl"
+                  aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}
+                >
+                  {isBookmarked ? "★" : "☆"}
+                </button>
+              </div>
 
               <p className="mt-2 text-base text-gray-300">
                 {movie.originalTitle}

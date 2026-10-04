@@ -1,27 +1,13 @@
-import { useState } from "react";
-
 import Header from "./components/layout/header";
 import MovieGrid from "./components/movies/movie-grid";
 
-
 import { movies } from "./data/movie";
+import { useBookmarkStore } from "./stores/bookmark-store";
 
 import "./App.css";
 
 function App() {
-  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>(
-    movies
-      .filter((movie) => movie.isBookmarked)
-      .map((movie) => movie.id)
-  );
-
-  function handleToggleBookmark(movieId: number) {
-    setBookmarkedIds((prev) =>
-      prev.includes(movieId)
-        ? prev.filter((id) => id !== movieId)
-        : [...prev, movieId]
-    );
-  }
+  const { bookmarkedMovieIds, toggleBookmark } = useBookmarkStore();
 
   return (
     <>
@@ -32,11 +18,9 @@ function App() {
 
         <MovieGrid
           movies={movies}
-          bookmarkedIds={bookmarkedIds}
-          onToggleBookmark={handleToggleBookmark}
+          bookmarkedIds={bookmarkedMovieIds}
+          onToggleBookmark={toggleBookmark}
         />
-
-        
       </main>
     </>
   );

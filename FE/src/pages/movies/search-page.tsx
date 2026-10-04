@@ -1,11 +1,16 @@
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useState, type SubmitEvent } from "react";
+
 import { movies } from "../../data/movie";
+import { useBookmarkStore } from "../../stores/bookmark-store";
 
 function SearchPage() {
   const { query } = useSearch({ from: "/search" });
   const navigate = useNavigate({ from: "/search" });
+
   const [searchText, setSearchText] = useState(query ?? "");
+
+  const { bookmarkedMovieIds, toggleBookmark } = useBookmarkStore();
 
   useEffect(() => {
     setSearchText(query ?? "");
@@ -81,55 +86,74 @@ function SearchPage() {
             </div>
           ) : (
             <ul className="space-y-6">
-              {searchResults.map((movie) => (
-                <li
-                  key={movie.id}
-                  className="flex gap-5 rounded-xl border border-gray-200 p-4 transition hover:shadow-md"
-                >
-                  <Link
-                    to="/movies/$movieId"
-                    params={{ movieId: String(movie.id) }}
-                    className="shrink-0"
+              {searchResults.map((movie) => {
+                const isBookmarked = bookmarkedMovieIds.includes(movie.id);
+
+                return (
+                  <li
+                    key={movie.id}
+                    className="flex gap-5 rounded-xl border border-gray-200 p-4 transition hover:shadow-md"
                   >
-                    <img
-                      src={movie.posterPath}
-                      alt={`${movie.title} 포스터`}
-                      className="h-48 w-32 rounded-lg object-cover"
-                    />
-                  </Link>
-
-                  <div className="flex min-w-0 flex-1 flex-col">
                     <Link
                       to="/movies/$movieId"
                       params={{ movieId: String(movie.id) }}
+                      className="shrink-0"
                     >
-                      <h3 className="text-lg font-bold text-gray-900 hover:underline">
-                        {movie.title}
-                      </h3>
+                      <img
+                        src={movie.posterPath}
+                        alt={`${movie.title} 포스터`}
+                        className="h-48 w-32 rounded-lg object-cover"
+                      />
                     </Link>
 
-                    <p className="mt-1 text-sm text-gray-500">
-                      {movie.originalTitle}
-                    </p>
+                    <div className="flex min-w-0 flex-1 flex-col">
+                      <div className="flex items-start justify-between gap-4">
+                        <Link
+                          to="/movies/$movieId"
+                          params={{ movieId: String(movie.id) }}
+                        >
+                          <h3 className="text-lg font-bold text-gray-900 hover:underline">
+                            {movie.title}
+                          </h3>
+                        </Link>
 
-                    <p className="mt-2 text-sm text-gray-500">
-                      {movie.releaseDate}
-                    </p>
+                        <button
+                          type="button"
+                          onClick={() => toggleBookmark(movie.id)}
+                          className="text-2xl"
+                          aria-label={
+                            isBookmarked
+                              ? "북마크 해제"
+                              : "북마크 추가"
+                          }
+                        >
+                          {isBookmarked ? "★" : "☆"}
+                        </button>
+                      </div>
 
-                    <p className="mt-4 line-clamp-3 text-sm leading-6 text-gray-700">
-                      {movie.overview}
-                    </p>
+                      <p className="mt-1 text-sm text-gray-500">
+                        {movie.originalTitle}
+                      </p>
 
-                    <Link
-                      to="/movies/$movieId"
-                      params={{ movieId: String(movie.id) }}
-                      className="mt-auto pt-4 text-sm font-semibold text-gray-900 hover:underline"
-                    >
-                      상세 보기 →
-                    </Link>
-                  </div>
-                </li>
-              ))}
+                      <p className="mt-2 text-sm text-gray-500">
+                        {movie.releaseDate}
+                      </p>
+
+                      <p className="mt-4 line-clamp-3 text-sm leading-6 text-gray-700">
+                        {movie.overview}
+                      </p>
+
+                      <Link
+                        to="/movies/$movieId"
+                        params={{ movieId: String(movie.id) }}
+                        className="mt-auto pt-4 text-sm font-semibold text-gray-900 hover:underline"
+                      >
+                        상세 보기 →
+                      </Link>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           )}
         </>
