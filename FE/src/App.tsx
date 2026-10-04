@@ -2,13 +2,10 @@ import Header from "./components/layout/header";
 import MovieGrid from "./components/movies/movie-grid";
 
 import { movies } from "./data/movie";
-import { useBookmarkStore } from "./stores/bookmark-store";
 
 import "./App.css";
 
 function App() {
-  const { bookmarkedMovieIds, toggleBookmark } = useBookmarkStore();
-
   return (
     <>
       <Header />
@@ -16,11 +13,7 @@ function App() {
       <main className="main">
         <h1>영화 목록</h1>
 
-        <MovieGrid
-          movies={movies}
-          bookmarkedIds={bookmarkedMovieIds}
-          onToggleBookmark={toggleBookmark}
-        />
+        <MovieGrid movies={movies} />
       </main>
     </>
   );

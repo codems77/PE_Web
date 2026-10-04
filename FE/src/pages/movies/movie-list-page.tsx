@@ -1,21 +1,9 @@
-import { useState } from "react";
 import { movies } from "../../data/movie";
 import MovieCard from "../../components/movies/movie-card";
+import { useBookmarkStore } from "../../stores/bookmark-store";
 
 function MovieListPage() {
-  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>(
-    movies
-      .filter((movie) => movie.isBookmarked)
-      .map((movie) => movie.id)
-  );
-
-  const handleToggleBookmark = (id: number) => {
-    setBookmarkedIds((prev) =>
-      prev.includes(id)
-        ? prev.filter((movieId) => movieId !== id)
-        : [...prev, id]
-    );
-  };
+  const { bookmarkedMovieIds, toggleBookmark } = useBookmarkStore();
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-8">
@@ -29,8 +17,8 @@ function MovieListPage() {
             title={movie.title}
             releaseDate={movie.releaseDate}
             poster={movie.posterPath}
-            isBookmarked={bookmarkedIds.includes(movie.id)}
-            onToggleBookmark={() => handleToggleBookmark(movie.id)}
+            isBookmarked={bookmarkedMovieIds.includes(movie.id)}
+            onToggleBookmark={() => toggleBookmark(movie.id)}
           />
         ))}
       </div>
