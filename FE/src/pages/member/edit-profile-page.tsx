@@ -27,6 +27,5 @@ export function EditProfilePage() {
       <div className="field"><label htmlFor="bio">한 줄 소개 <span className="optional">선택</span></label><textarea id="bio" rows={3} placeholder="어떤 영화를 좋아하시나요?" value={bio} onChange={e => setBio(e.target.value)} aria-invalid={bio.length > 100} aria-describedby="bio-count" /><p id="bio-count" className={bio.length > 100 ? 'field-error counter' : 'field-hint counter'}>{bio.length} / 100</p></div>
       <div className="form-actions"><Link className="button secondary" to="/mypage">취소</Link><button type="submit" className="button primary" disabled={!valid || !changed}>변경사항 저장</button></div>
     </form>
-    <p className="scope-note">실제 계정이 아닌 샘플 프로필을 수정하는 화면이에요.</p>
   </section>;
 }

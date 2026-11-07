@@ -37,9 +37,6 @@
 .account-page .notice.success{color:#18735b;background:#e9f5ef;border-color:#cce7da}
 .account-page .notice.error{color:#b33b48;background:#fff0f1;border-color:#f6d6d9}
 .account-page .notice a{display:block;font-weight:600;margin-top:8px}
-.account-page .scope-note{font-size:10px;line-height:1.9;color:#8b94a5;margin:30px 0 0;padding-top:20px;border-top:1px solid #e3e7ee}
-.account-page .scope-note a{display:block;color:#5879b6;margin-top:5px}
-.account-page .scope-note>span{margin-right:3px}
 .account-page .signup-panel{max-width:380px}
 .account-page .profile-panel{max-width:590px;width:100%}
 .account-page .page-heading{display:flex;justify-content:space-between;align-items:flex-start}

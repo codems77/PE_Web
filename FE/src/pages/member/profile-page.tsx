@@ -12,6 +12,5 @@ export function ProfilePage() {
       <dl className="profile-details"><div><dt>이메일</dt><dd>{profile.email}</dd></div><div><dt>닉네임</dt><dd>{profile.nickname}</dd></div><div><dt>한 줄 소개</dt><dd>{profile.bio || '아직 소개를 작성하지 않았어요.'}</dd></div></dl>
       <Link className="button primary" to="/mypage/edit">내 정보 수정 <span aria-hidden="true">↗</span></Link>
     </div>
-    <p className="scope-note">샘플 프로필이에요. 수정 내용은 현재 화면에서만 유지되며 새로고침하면 초기화돼요. 서버 연동과 로그인 인증은 다음 주차에 진행해요.</p>
   </section>;
 }
