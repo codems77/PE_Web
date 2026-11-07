@@ -1,0 +1,73 @@
+.account-page{min-height:calc(100svh - 64px);display:flex;justify-content:center;align-items:flex-start;padding:64px 24px 80px;color:#202737;line-height:1.6}
+.account-page h1{font-size:28px;line-height:1.4;letter-spacing:-1px;margin:0;font-weight:700}
+.account-page input,.account-page textarea,.account-page button{font:inherit}
+.account-page button{cursor:pointer}.account-page button:disabled{cursor:not-allowed}
+.account-page button:focus-visible,.account-page a:focus-visible{outline:3px solid #93b4ff;outline-offset:4px}
+.account-page .auth-panel{width:100%;max-width:380px}
+.account-page .eyebrow{font-size:10px;letter-spacing:2px;font-weight:700;color:#3168eb;display:block;margin-bottom:10px}
+.account-page h1{font-size:28px;line-height:1.4;letter-spacing:-1.1px;margin:0;font-weight:800}
+.account-page .subtitle{color:#7d8595;font-size:13px;margin:11px 0 32px;letter-spacing:-.3px}
+.account-page .field{margin-bottom:21px}
+.account-page .field label{font-size:12px;font-weight:600;display:block;margin-bottom:8px;color:#3c4558}
+.account-page .input-row{display:flex;align-items:center;min-height:49px;border:1px solid #e0e4ec;border-radius:8px;background:#fff;transition:border-color .15s,box-shadow .15s;overflow:hidden}
+.account-page .input-row:focus-within{border-color:#3971f4;box-shadow:0 0 0 3px #3971f40d}
+.account-page .input-row.invalid{border-color:#df6b70}
+.account-page .input-row input{background:transparent;border:0;outline:0;min-width:0;width:100%;height:48px;padding:12px 14px;font-size:13px;color:#222d43}
+.account-page .input-row input::placeholder,.account-page textarea::placeholder{color:#a9afbd}
+.account-page .input-row input:disabled{background:#f1f3f7;color:#929bad}
+.account-page .input-row input[readonly]{background:#eef0f5;color:#8790a1}
+.account-page .reveal{border:0;background:none;font-size:10px;color:#7f899c;flex-shrink:0;padding:8px 13px}
+.account-page .check-button{background:none;color:#3268e5;font-size:11px;font-weight:600;border:0;white-space:nowrap;padding:9px 14px;flex-shrink:0}
+.account-page .check-button:disabled{color:#aeb9d1}
+.account-page .field-hint,.account-page .field-error,.account-page .check-message{font-size:10px;line-height:1.7;margin:6px 0 0;letter-spacing:-.15px}
+.account-page .field-hint{color:#9099aa}
+.account-page .field-error{color:#d64450}
+.account-page .check-message{margin-top:-15px;margin-bottom:18px}
+.account-page .success-text{color:#16836a}
+.account-page .button{border:1px solid transparent;border-radius:8px;min-height:48px;padding:12px 20px;display:inline-flex;align-items:center;justify-content:center;gap:24px;font-size:13px;font-weight:600;transition:background .15s}
+.account-page .primary{background:#3168eb;color:white;box-shadow:0 3px 8px #245edb12}
+.account-page .primary:hover:not(:disabled){background:#2458d2}
+.account-page .primary:disabled{background:#a8bff4;box-shadow:none;color:#f9fbff}
+.account-page .secondary{background:white;border-color:#dce1ea;color:#667085}
+.account-page .secondary:hover{background:#f4f6f9}
+.account-page .full{width:100%;margin-top:5px}
+.account-page .auth-link{text-align:center;color:#929aa9;font-size:11px;margin:23px 0 0}
+.account-page .auth-link a{color:#3168eb;font-weight:600;margin-left:5px}
+.account-page .notice{font-size:12px;background:#eaf0ff;border:1px solid #d6e2fc;padding:14px 16px;border-radius:8px;color:#36568d;margin:20px 0 0;overflow-wrap:anywhere}
+.account-page .notice.success{color:#18735b;background:#e9f5ef;border-color:#cce7da}
+.account-page .notice.error{color:#b33b48;background:#fff0f1;border-color:#f6d6d9}
+.account-page .notice a{display:block;font-weight:600;margin-top:8px}
+.account-page .scope-note{font-size:10px;line-height:1.9;color:#8b94a5;margin:30px 0 0;padding-top:20px;border-top:1px solid #e3e7ee}
+.account-page .scope-note a{display:block;color:#5879b6;margin-top:5px}
+.account-page .scope-note>span{margin-right:3px}
+.account-page .signup-panel{max-width:380px}
+.account-page .profile-panel{max-width:590px;width:100%}
+.account-page .page-heading{display:flex;justify-content:space-between;align-items:flex-start}
+.account-page .small-badge{background:#e8eefc;color:#4c70bd;font-size:10px;border-radius:20px;padding:5px 12px;margin-top:28px}
+.account-page .profile-card{background:white;border:1px solid #e5e9f0;border-radius:14px;padding:32px;box-shadow:0 8px 28px #26314b03}
+.account-page .profile-summary{display:flex;align-items:center;gap:18px;padding-bottom:28px;border-bottom:1px solid #edf0f5}
+.account-page .avatar{width:66px;height:66px;border-radius:24px;background:#eaf0ff;color:#4974d2;display:grid;place-items:center;font-size:26px;font-weight:700;flex-shrink:0}
+.account-page .muted-label{font-size:10px;color:#949caf}
+.account-page .profile-summary h2{margin:0;font-size:20px;letter-spacing:-.6px;overflow-wrap:anywhere}
+.account-page .profile-summary h2 span{font-weight:400;font-size:16px;margin-left:3px}
+.account-page .profile-summary p{font-size:10px;color:#919aaa;margin:4px 0 0}
+.account-page .profile-details{margin:25px 0 30px}
+.account-page .profile-details>div{display:grid;grid-template-columns:96px 1fr;gap:12px;margin:19px 0}
+.account-page .profile-details dt{color:#929bab;font-size:12px}
+.account-page .profile-details dd{margin:0;font-size:13px;overflow-wrap:anywhere}
+.account-page .profile-card>.button{width:100%}
+.account-page .profile-panel>.notice{margin-top:0;margin-bottom:20px}
+.account-page .back-link{display:inline-block;font-size:11px;color:#8691a4;margin-bottom:26px}
+.account-page .edit-card{margin-top:28px}
+.account-page .edit-avatar{display:flex;align-items:center;gap:16px;margin-bottom:30px}
+.account-page .edit-avatar .avatar{width:54px;height:54px;border-radius:19px;font-size:22px}
+.account-page .edit-avatar p{font-size:12px;color:#7f899b}
+.account-page .optional{font-size:10px;font-weight:400;color:#9ba4b2;margin-left:6px}
+.account-page textarea{display:block;resize:vertical;min-height:96px;width:100%;padding:13px 14px;border:1px solid #e0e4ec;border-radius:8px;font-size:13px;background:#fff;color:#222d43}
+.account-page textarea:focus{outline:0;border-color:#3971f4;box-shadow:0 0 0 3px #3971f40d}
+.account-page textarea[aria-invalid=true]{border-color:#df6b70}
+.account-page .counter{text-align:right}
+.account-page .form-actions{display:flex;gap:10px;padding-top:8px}
+.account-page .form-actions .button:first-child{flex:1}
+.account-page .form-actions .button:last-child{flex:2}
+@media(max-width:640px){.account-page{padding:40px 20px 60px}.account-page h1{font-size:25px}.account-page .profile-card{padding:22px}.account-page .profile-details>div{grid-template-columns:70px 1fr;gap:8px}}
