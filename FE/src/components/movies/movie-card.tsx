@@ -1,13 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { cn } from "../../utils/cn";
+import { BookmarkButton } from "../bookmark-button";
 
 type MovieCardProps = {
   id: number;
   title: string;
   releaseDate: string;
   poster: string;
-  isBookmarked: boolean;
-  onToggleBookmark: () => void;
 };
 
 function MovieCard({
@@ -15,8 +13,6 @@ function MovieCard({
   title,
   releaseDate,
   poster,
-  isBookmarked,
-  onToggleBookmark,
 }: MovieCardProps) {
   return (
     <div className="w-full">
@@ -33,26 +29,7 @@ function MovieCard({
           />
         </Link>
 
-        <button
-          type="button"
-          className={cn(
-            "absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm transition",
-            isBookmarked && "bg-black/70"
-          )}
-          onClick={onToggleBookmark}
-          aria-pressed={isBookmarked}
-          aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}
-        >
-          <img
-            className="h-5 w-5"
-            src={
-              isBookmarked
-                ? "/icons/movie-icons/bookmark.svg"
-                : "/icons/movie-icons/bookmark-outline.svg"
-            }
-            alt=""
-          />
-        </button>
+        <div className="absolute right-3 top-3 rounded bg-white p-2 text-xs"><BookmarkButton movieId={id} /></div>
       </div>
 
       <Link

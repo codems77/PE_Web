@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 
 import MovieCard from "../../components/movies/movie-card";
-import { useBookmarkStore } from "../../stores/bookmark-store";
 import { getMovies } from "../../api/movies/get-movies";
 import type { TmdbMovieListItem } from "../../api/movies/models";
 
 function MovieListPage() {
-  const { bookmarkedMovieIds, toggleBookmark } = useBookmarkStore();
 
   const [movies, setMovies] = useState<TmdbMovieListItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -84,8 +82,6 @@ function MovieListPage() {
                   ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
                   : "/placeholder.png"
               }
-              isBookmarked={bookmarkedMovieIds.includes(movie.id)}
-              onToggleBookmark={() => toggleBookmark(movie.id)}
             />
           ))}
         </div>
