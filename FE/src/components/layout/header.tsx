@@ -1,6 +1,9 @@
 import { Link } from "@tanstack/react-router";
 
+import { useAuthStore } from "../../stores/auth-store";
+
 function Header() {
+  const token = useAuthStore(s => s.accessToken);
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
@@ -48,10 +51,10 @@ function Header() {
           </Link>
 
           <Link
-            to="/login"
+            to={token ? "/mypage" : "/login"}
             className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-700"
           >
-            로그인
+            {token ? "마이페이지" : "로그인"}
           </Link>
         </div>
       </div>

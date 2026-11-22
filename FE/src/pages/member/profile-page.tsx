@@ -1,16 +1,19 @@
-import { Link, useSearch } from '@tanstack/react-router';
-import { useProfile } from '../../stores/profile-store';
-
+import { useQuery } from "@tanstack/react-query";
+import { getMovieDetail } from "../../api/movies/get-movie-detail";
+import { Link } from "@tanstack/react-router";
+import { useMe } from "../../hooks/use-account";
+import { useFavorites } from "../../hooks/use-favorites";
 export function ProfilePage() {
-  const { profile } = useProfile();
-  const { updated } = useSearch({ from: '/mypage' });
-  return <section className="profile-panel" aria-labelledby="profile-title">
-    <div className="page-heading"><div><span className="eyebrow">MY ACCOUNT</span><h1 id="profile-title">내 정보</h1><p className="subtitle">영화를 좋아하는 나를 소개해 보세요.</p></div><span className="small-badge">프로필</span></div>
-    {updated && <p className="notice success" role="status">프로필을 수정했어요. 변경한 내용을 확인해 보세요.</p>}
-    <div className="profile-card">
-      <div className="profile-summary"><div className="avatar" aria-hidden="true">{profile.nickname.slice(0, 1)}</div><div><span className="muted-label">반가워요!</span><h2>{profile.nickname}<span>님</span></h2><p>나만의 영화 취향을 쌓아가는 중</p></div></div>
-      <dl className="profile-details"><div><dt>이메일</dt><dd>{profile.email}</dd></div><div><dt>닉네임</dt><dd>{profile.nickname}</dd></div><div><dt>한 줄 소개</dt><dd>{profile.bio || '아직 소개를 작성하지 않았어요.'}</dd></div></dl>
-      <Link className="button primary" to="/mypage/edit">내 정보 수정 <span aria-hidden="true">↗</span></Link>
-    </div>
+  const me = useMe();
+  const favorites = useFavorites();
+  return <section className="profile-panel"><h1>내 정보</h1>
+    {me.isLoading ? <p role="status">내 정보 불러오는 중...</p> : me.isError ? <button onClick={() => void me.refetch()}>내 정보 다시 불러오기</button> : me.data && <div className="profile-card"><h2>{me.data.nickname}님</h2><p>{me.data.email}</p><Link to="/mypage/edit">내 정보 수정</Link></div>}
+    <h2>즐겨찾는 영화</h2>
+    {favorites.isLoading ? <p role="status">즐겨찾기 불러오는 중...</p> : favorites.isError ? <button onClick={() => void favorites.refetch()}>즐겨찾기 다시 불러오기</button> : favorites.data?.length ? <ul>{favorites.data.map(f => <FavoriteMovie key={f.movieId} movieId={f.movieId} />)}</ul> : <p>즐겨찾는 영화가 없어요.</p>}
   </section>;
+}
+
+function FavoriteMovie({ movieId }: { movieId: number }) {
+  const movie = useQuery({ queryKey: ["movies", movieId], queryFn: () => getMovieDetail(movieId) });
+  return <li><Link to="/movies/$movieId" params={{ movieId: String(movieId) }}>{movie.data?.title ?? `영화 ${movieId}`}</Link></li>;
 }

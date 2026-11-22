@@ -1,7 +1,7 @@
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useState, type SubmitEvent } from "react";
 
-import { useBookmarkStore } from "../../stores/bookmark-store";
+import { BookmarkButton } from "../../components/bookmark-button";
 import { searchMovies } from "../../api/movies/search-movies";
 import type { TmdbMovieListItem } from "../../api/movies/models";
 
@@ -14,7 +14,6 @@ function SearchPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const { bookmarkedMovieIds, toggleBookmark } = useBookmarkStore();
 
   useEffect(() => {
     setSearchText(query);
@@ -122,7 +121,6 @@ function SearchPage() {
 
           <ul className="space-y-6">
             {movies.map((movie) => {
-              const isBookmarked = bookmarkedMovieIds.includes(movie.id);
 
               const posterUrl = movie.poster_path
                 ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
@@ -156,16 +154,7 @@ function SearchPage() {
                         </h3>
                       </Link>
 
-                      <button
-                        type="button"
-                        onClick={() => toggleBookmark(movie.id)}
-                        className="text-2xl"
-                        aria-label={
-                          isBookmarked ? "북마크 해제" : "북마크 추가"
-                        }
-                      >
-                        {isBookmarked ? "★" : "☆"}
-                      </button>
+                      <BookmarkButton movieId={movie.id} />
                     </div>
 
                     <p className="mt-1 text-sm text-gray-500">

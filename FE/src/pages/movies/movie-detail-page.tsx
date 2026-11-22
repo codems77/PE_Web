@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 
 import { getMovieDetail } from "../../api/movies/get-movie-detail";
 import type { TmdbMovieDetail } from "../../api/movies/models";
-import { useBookmarkStore } from "../../stores/bookmark-store";
+import { BookmarkButton } from "../../components/bookmark-button";
+import { MovieRating } from "../../components/movies/movie-rating";
 
 export function MovieDetailPage() {
   const { movieId } = useParams({ from: "/movies/$movieId" });
@@ -12,7 +13,7 @@ export function MovieDetailPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const { bookmarkedMovieIds, toggleBookmark } = useBookmarkStore();
+
 
   useEffect(() => {
     let ignore = false;
@@ -73,7 +74,7 @@ export function MovieDetailPage() {
     );
   }
 
-  const isBookmarked = bookmarkedMovieIds.includes(movie.id);
+
 
   const backdropUrl = movie.backdrop_path
     ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
@@ -114,14 +115,7 @@ export function MovieDetailPage() {
                   {movie.title}
                 </h1>
 
-                <button
-                  type="button"
-                  onClick={() => toggleBookmark(movie.id)}
-                  className="text-3xl"
-                  aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"}
-                >
-                  {isBookmarked ? "★" : "☆"}
-                </button>
+                <BookmarkButton movieId={movie.id} />
               </div>
 
               <p className="mt-2 text-base text-gray-300">
@@ -140,6 +134,7 @@ export function MovieDetailPage() {
         </div>
       </section>
 
+      <div className="mx-auto max-w-7xl px-6"><MovieRating key={movieId} movieId={movie.id} /></div>
       {/* 상세 내용 */}
       <section className="mx-auto max-w-7xl px-6 py-10">
         <Link
