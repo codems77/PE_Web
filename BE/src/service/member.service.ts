@@ -1,10 +1,13 @@
 // src/service/member.service.ts
 
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
+import { ApiException } from '../exception/api.exception.js';
+import { MemberInfoResponseDto } from '../dto/member-info-response.dto.js';
+import { MemberUpdateRequestDto } from '../dto/member-update-request.dto.js';
 import { Member } from '../entity/member.entity.js';
 import { CheckResponseDto } from '../dto/check-response.dto.js';
 import { CreateMemberDto } from '../dto/create-member.dto.js';
@@ -14,6 +17,30 @@ export class MemberService {
     @InjectRepository(Member)
     private readonly memberRepository: Repository<Member>,
   ) {}
+
+  async getMyInfo(memberId: number): Promise<MemberInfoResponseDto> {
+    const member = await this.memberRepository.findOne({ where: { memberId } });
+    if (!member) {
+      throw new ApiException(HttpStatus.NOT_FOUND, 'MEMBER404_1', '해당 회원을 찾을 수 없습니다.');
+    }
+    return MemberInfoResponseDto.from(member);
+  }
+
+  async updateMyInfo(memberId: number, dto: MemberUpdateRequestDto): Promise<MemberInfoResponseDto> {
+    const member = await this.memberRepository.findOne({ where: { memberId } });
+    if (!member) {
+      throw new ApiException(HttpStatus.NOT_FOUND, 'MEMBER404_1', '해당 회원을 찾을 수 없습니다.');
+    }
+    const duplicated = await this.memberRepository.findOne({
+      where: { nickname: dto.nickname, memberId: Not(memberId) },
+    });
+    if (duplicated) {
+      throw new ApiException(HttpStatus.CONFLICT, 'MEMBER409_1', '이미 사용 중인 닉네임입니다.');
+    }
+    member.nickname = dto.nickname;
+    await this.memberRepository.save(member);
+    return MemberInfoResponseDto.from(member);
+  }
 
   async checkNickname(nickname: string): Promise<CheckResponseDto> {
     const exists = await this.memberRepository.exists({
