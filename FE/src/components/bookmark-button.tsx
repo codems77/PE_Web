@@ -1,8 +1,10 @@
-import { Link } from "@tanstack/react-router";
+"use client";
+
+import Link from "next/link";
 import { useFavorite } from "../hooks/use-favorites";
 export function BookmarkButton({ movieId }: { movieId: number }) {
   const { token, query, mutation } = useFavorite(movieId);
-  if (!token) return <Link to="/login">로그인 후 즐겨찾기</Link>;
+  if (!token) return <Link href="/login">로그인 후 즐겨찾기</Link>;
   if (query.isLoading) return <span role="status">즐겨찾기 확인 중...</span>;
   if (query.isError) return <button type="button" onClick={() => void query.refetch()}>즐겨찾기 다시 불러오기</button>;
   const selected = query.data?.isFavorite ?? false;

@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createRating, deleteRating, getRatings, updateRating, type Rating } from "../../api/ratings";
 import { getMemberId, useAuthStore } from "../../stores/auth-store";
@@ -7,7 +9,7 @@ export function MovieRating({ movieId }: { movieId: number }) {
   const token = useAuthStore(s => s.accessToken);
   const memberId = getMemberId(token);
   const query = useQuery({ queryKey: ["ratings", token, memberId], queryFn: () => getRatings(memberId!), enabled: Boolean(memberId), retry: false });
-  if (!token) return <Link to="/login">로그인 후 평점 남기기</Link>;
+  if (!token) return <Link href="/login">로그인 후 평점 남기기</Link>;
   if (!memberId) return <p role="alert">회원 ID를 확인할 수 없어요. 다시 로그인해 주세요.</p>;
   if (query.isLoading) return <p role="status">내 평점 불러오는 중...</p>;
   if (query.isError) return <button onClick={() => void query.refetch()}>평점 다시 불러오기</button>;
