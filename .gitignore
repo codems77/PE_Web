@@ -1,1 +1,5 @@
 .DS_Store
+
+/FE/.next/
+/FE/next-env.d.ts
+/FE/*.tsbuildinfo

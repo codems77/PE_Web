@@ -1,3 +1,7 @@
+# UMCine
+
+로컬 실행과 Next.js 마이그레이션 기록은 [FE 9주차 미션](docs/week09-mission.md)을 참고하세요.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.

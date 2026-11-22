@@ -1,7 +1,14 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 export const useAuthStore = create<{ accessToken: string | null; setAccessToken: (token: string | null) => void }>()(
-  persist((set) => ({ accessToken: null, setAccessToken: (accessToken) => set({ accessToken }) }), { name: "umcine-auth-store" }),
+  persist(
+    (set) => ({ accessToken: null, setAccessToken: (accessToken) => set({ accessToken }) }),
+    {
+      name: "umcine-auth-store",
+      storage: typeof window === "undefined" ? undefined : createJSONStorage(() => window.localStorage),
+      skipHydration: true,
+    },
+  ),
 );
 // The server verifies the token; decoding only supplies the member ID for the ratings URL.
 export function getMemberId(token: string | null): number | null {

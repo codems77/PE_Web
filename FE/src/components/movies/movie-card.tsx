@@ -1,4 +1,6 @@
-import { Link } from "@tanstack/react-router";
+"use client";
+
+import Link from "next/link";
 import { BookmarkButton } from "../bookmark-button";
 
 type MovieCardProps = {
@@ -18,8 +20,7 @@ function MovieCard({
     <div className="w-full">
       <div className="relative overflow-hidden rounded-xl bg-gray-100">
         <Link
-          to="/movies/$movieId"
-          params={{ movieId: String(id) }}
+          href={`/movies/${id}`}
           className="block"
         >
           <img
@@ -33,8 +34,7 @@ function MovieCard({
       </div>
 
       <Link
-        to="/movies/$movieId"
-        params={{ movieId: String(id) }}
+        href={`/movies/${id}`}
         className="mt-3 block"
       >
         <h2 className="truncate text-base font-semibold text-gray-900">

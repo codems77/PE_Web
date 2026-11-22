@@ -1,4 +1,6 @@
-import { Link } from "@tanstack/react-router";
+"use client";
+
+import Link from "next/link";
 
 import { useAuthStore } from "../../stores/auth-store";
 
@@ -23,23 +25,23 @@ function Header() {
 
           {/* 메뉴 */}
           <nav className="flex items-center gap-3 text-xs sm:gap-7 sm:text-sm font-medium">
-            <Link to="/" className="font-semibold text-gray-900">영화</Link>
+            <Link href="/" className="font-semibold text-gray-900">영화</Link>
 
             <Link
-              to="/search"
+              href="/search"
               className="text-gray-500 transition hover:text-gray-900"
             >
               검색
             </Link>
 
-            <Link to="/mypage" className="text-gray-500 transition hover:text-gray-900">내 정보</Link>
+            <Link href="/mypage" className="text-gray-500 transition hover:text-gray-900">내 정보</Link>
           </nav>
         </div>
 
         {/* 오른쪽 */}
         <div className="flex items-center gap-4">
           <Link
-            to="/search"
+            href="/search"
             aria-label="검색"
             className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-gray-100"
           >
@@ -51,7 +53,7 @@ function Header() {
           </Link>
 
           <Link
-            to={token ? "/mypage" : "/login"}
+            href={token ? "/mypage" : "/login"}
             className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-700"
           >
             {token ? "마이페이지" : "로그인"}
