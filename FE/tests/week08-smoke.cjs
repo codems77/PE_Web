@@ -58,7 +58,7 @@ const appUrl=process.env.APP_URL || 'http://127.0.0.1:3000';
  await page.getByLabel('별점',{exact:true}).selectOption('4');await page.getByRole('button',{name:'평점 수정',exact:true}).click();await page.waitForFunction(()=>document.querySelector('#score')?.value==='4');
  await page.getByRole('button',{name:'평점 삭제',exact:true}).click();await wait(page.getByRole('button',{name:'평점 등록',exact:true}));assert.equal(ratings.length,0);
  assert(calls.some(c=>c.method==='PATCH'&&c.p.endsWith('/ratings/9')&&c.body.score===4));console.log('PASS 5: ratings create, update, delete and refetch');
- await page.goto('http://127.0.0.1:5173/mypage/edit');await wait(page.getByLabel('닉네임',{exact:true}));await page.getByLabel('닉네임',{exact:true}).fill('새닉네임');await page.getByRole('button',{name:'변경사항 저장'}).click();await page.waitForURL('**/mypage');await wait(page.getByRole('heading',{name:'새닉네임님'}));console.log('PASS 6: server profile used by protected pages');
+ await page.goto(new URL('/mypage/edit',appUrl).href);await wait(page.getByLabel('닉네임',{exact:true}));await page.getByLabel('닉네임',{exact:true}).fill('새닉네임');await page.getByRole('button',{name:'변경사항 저장'}).click();await page.waitForURL('**/mypage');await wait(page.getByRole('heading',{name:'새닉네임님'}));console.log('PASS 6: server profile used by protected pages');
  expire=true;await page.reload();await page.waitForURL('**/login');assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('umcine-auth-store')).state.accessToken),null);console.log('PASS 7: 401 clears session and redirects');
  assert.deepEqual(errors,[]);console.log('PASS: no browser exceptions; authenticated API headers checked');
  await browser.close();
